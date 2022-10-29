@@ -8,8 +8,8 @@ import { UserRepository } from './repository/user.repository';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: UserRepository,
+    //@InjectRepository(UserRepository)
+    private userRepository: UserRepository,
   ) {}
 
   async findByFields(

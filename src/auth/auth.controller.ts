@@ -10,8 +10,8 @@ export class AuthController {
   @Post('/register')
   async registerAccount(
     @Req() req: Request,
-    @Body() UserDTO: UserDTO,
+    @Body() userDto: UserDTO,
   ): Promise<any> {
-    return await this.authService.registerUser(UserDTO);
+    return await this.authService.registerUser(userDto);
   }
 }
