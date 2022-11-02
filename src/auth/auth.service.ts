@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserDTO } from './dto/user.dto';
 import { UserService } from './user.service';
 
@@ -20,5 +25,15 @@ export class AuthService {
       );
     }
     return await this.userService.save(newUser);
+  }
+
+  async validateUser(userDTO: UserDTO): Promise<UserDTO | undefined> {
+    const userFind: UserDTO = await this.userService.findByFields({
+      where: { username: userDTO.username },
+    });
+    if (!userFind || userDTO.password !== userFind.password) {
+      throw new UnauthorizedException(); //인증인 안됐음을 던져줌
+    }
+    return userFind;
   }
 }
